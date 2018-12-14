@@ -12,9 +12,21 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "lib": [
+      "es6",
+      "dom",
+      "esnext"
+    ],
+    "typeRoots": [
+      "node_modules/@types"   
+    ]
   },
+  
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
