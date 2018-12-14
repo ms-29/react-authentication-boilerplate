@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "23.3.10",
-    "@types/node": "10.12.15",
-    "@types/react": "16.7.17",
-    "@types/react-dom": "16.0.11",
+    "apollo-client": "^2.4.7",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
+    "react-apollo": "^2.3.3",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-little-router": "^15.1.2",
     "typescript": "3.2.2"
   },
   "scripts": {
@@ -26,5 +29,13 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.15",
+    "@types/react": "^16.7.17",
+    "@types/react-dom": "^16.0.11",
+    "pm2": "^3.2.3",
+    "react-scripts": "^2.1.1"
+  }
 }
