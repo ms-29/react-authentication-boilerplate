@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { postgraphile } from 'postgraphile';
 import { Pool } from 'pg';
 
@@ -13,6 +14,13 @@ const pgPool = new Pool({
   port: process.env.POSTGRES_PORT,
   database: process.env.POSTGRES_DATABASE
 });
+
+app.use(cors({
+  origin: [
+    process.env.POSTGRES_ALLOWED_ORIGIN
+  ],
+  optionsSuccessStatus: 200
+}))
 
 app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
