@@ -5,6 +5,7 @@
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "pg": "^7.7.1",
     "postgraphile": "^4.1.0"
   },
   "scripts": {
