@@ -11,12 +11,12 @@ import client from './app/clients';
 import './index.scss';
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <ApolloProvider client={client}>
       <BrowserRouter>
         <Routes />
       </BrowserRouter>
-    </Provider>
-  </ApolloProvider>,
+    </ApolloProvider>
+  </Provider>,
   document.getElementById('root')
 );
