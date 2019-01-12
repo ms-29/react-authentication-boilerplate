@@ -1,4 +1,7 @@
--- Create user Table
+-- Extension
+CREATE EXTENSION pgcrypto SCHEMA auth_public
+
+-- Table
 CREATE TABLE auth_public.user (
   user_id SERIAL NOT NULL PRIMARY KEY,
   email TEXT NOT NULL UNIQUE,
@@ -9,7 +12,7 @@ CREATE TABLE auth_public.user (
 COMMENT ON COLUMN auth_public.user.password_hash is E'@omit';
 COMMENT ON TABLE auth_public.user is E'@omit create';
 
--- Register User
+-- Function
 CREATE FUNCTION auth_public.register_user(
   email TEXT,
   password TEXT
@@ -25,7 +28,7 @@ BEGIN
 	VALUES
 	(
 	  email,
-	  CRYPT(password, GEN_SALT('bf'))
+	  auth_public.CRYPT(password, auth_public.GEN_SALT('bf'))
 	)
   RETURNING * INTO new_user;
 				  
