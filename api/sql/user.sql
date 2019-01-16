@@ -1,6 +1,10 @@
 -- Extension
 CREATE EXTENSION pgcrypto SCHEMA auth_public
 
+-- Role
+CREATE ROLE role_auth_public
+CREATE ROLE role_auth_private
+
 -- Type
 CREATE TYPE auth_public.jwt_token as (
 	user_role text,
@@ -58,7 +62,7 @@ BEGIN
 	
 	IF user_account.password_hash = auth_public.CRYPT(authenticate.password, user_account.password_hash) THEN
 		RETURN (
-			'auth_private',
+			'role_auth_private',
 			user_account.user_id,
 			ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days'))
 		)::auth_public.jwt_token;
@@ -68,3 +72,7 @@ BEGIN
 	
 END
 $$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER
+
+
+-- Grant
+GRANT USAGE ON SCHEMA auth_public TO role_auth_public, role_auth_private

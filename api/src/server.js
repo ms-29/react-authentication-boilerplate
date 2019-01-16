@@ -26,7 +26,10 @@ app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
     graphiql: true,
     watchPg: true,
+    showErrorStack: true,
+    extendedErrors: ['hint', 'detail', 'errcode'],
     jwtSecret: process.env.POSTGRES_JWT_SECRET,
+    pgDefaultRole: process.env.POSTGRES_DEFAULT_ROLE,
     jwtPgTypeIdentifier: process.env.POSTGRES_TYPE_IDENTIFIER
   }
 ));
