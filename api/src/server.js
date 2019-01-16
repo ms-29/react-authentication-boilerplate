@@ -20,12 +20,14 @@ app.use(cors({
     process.env.POSTGRES_ALLOWED_ORIGIN
   ],
   optionsSuccessStatus: 200
-}))
+}));
 
 app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
+    graphiql: true,
     watchPg: true,
-    graphiql: true
+    jwtSecret: process.env.POSTGRES_JWT_SECRET,
+    jwtPgTypeIdentifier: process.env.POSTGRES_TYPE_IDENTIFIER
   }
 ));
 
