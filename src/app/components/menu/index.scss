@@ -1,0 +1,19 @@
+.navbar-brand {
+  h1 {
+    margin: 0;
+    font-size: 1em;  
+    color: #FFFFFF;
+  }
+}
+
+.navbar-nav {
+  li {
+    &.nav-item {
+      a {
+        &.nav-link {
+          color: #FFFFFF;    
+        }  
+      }  
+    }
+  }  
+}
