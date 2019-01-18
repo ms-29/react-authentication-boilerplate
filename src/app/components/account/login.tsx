@@ -49,30 +49,42 @@ class Login extends React.Component<IProps, IState> {
 
   render() {
     return (
-      <div>
-        <div>
-          <h1>Login</h1>
-        </div>
-        <div>
-          <Mutation mutation={LOGIN_USER}>
-            {(loginUser) => {
-              return (
-                <form onSubmit={this.handleSubmit(loginUser)}>
-                  <div>
-                    <label>Email</label>
-                    <input type='text' name='email' onChange={this.handleChange} />
-                  </div>
-                  <div>
-                    <label>Password</label>
-                    <input type='password' name='password' onChange={this.handleChange} />
-                  </div>
-                  <div>
-                    <input type='submit' value='Login' />
-                  </div>
-                </form>
-              );
-            }}
-          </Mutation>
+      <div className='col-sm-12'>
+        <div className='col-sm-6 mx-auto'>
+          <div className='mt-4'>
+            <div className='card'>
+              <div className='card-header'>
+                <h4>Login</h4>
+              </div>
+              <div className='card-body'>
+                <Mutation mutation={LOGIN_USER}>
+                  {(loginUser) => {
+                    return (
+                      <form onSubmit={this.handleSubmit(loginUser)}>
+                        <div className='form-group row'>
+                          <label className='col-sm-2 col-form-label'>Email</label>
+                          <div className='col-sm-10'>
+                            <input className='form-control' type='text' name='email' placeholder='Email' onChange={this.handleChange} />
+                          </div>
+                        </div>
+                        <div className='form-group row'>
+                          <label className='col-sm-2 col-form-label'>Password</label>
+                          <div className='col-sm-10'>
+                            <input className='form-control' type='password' name='password' placeholder='Password' onChange={this.handleChange} />
+                          </div>
+                        </div>
+                        <div className='form-group row'>
+                          <div className='col-sm-12'>
+                            <input className='btn btn-primary float-right' type='submit' value='Login' />
+                          </div>
+                        </div>
+                      </form>
+                    );
+                  }}
+                </Mutation>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
