@@ -1,14 +1,36 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { Mutation, MutationFn } from 'react-apollo';
+import { ApolloError } from 'apollo-client';
 
 import { LOGIN_USER } from './mutation';
+import { setToken } from '../../reducers/token';
 
-interface IProps {
+interface IOwnProps {
+
+}
+
+interface IStateProps {
+
+}
+
+interface IDispatchProps {
+  setToken: (token: string) => void;
+}
+
+interface IProps extends IOwnProps, IStateProps, IDispatchProps {
 
 }
 
 interface IState {
   [key: string]: string;
+}
+
+interface IResponse {
+  authenticate: {
+    jwtToken: string;
+  };
 }
 
 class Login extends React.Component<IProps, IState> {
@@ -40,11 +62,17 @@ class Login extends React.Component<IProps, IState> {
         email: this.state.email,
         password: this.state.password
       }
-    }).then(response => {
-      console.log(response);
-    }).catch(error => {
-      console.log(error);
     });
+  }
+
+  onCompleteLogin = (response: IResponse) => {
+    if (response) {
+      this.props.setToken(response.authenticate.jwtToken);
+    }
+  }
+
+  onLoginError = (error: ApolloError) => {
+    console.log(error);
   }
 
   render() {
@@ -57,7 +85,7 @@ class Login extends React.Component<IProps, IState> {
                 <h4>Login</h4>
               </div>
               <div className='card-body'>
-                <Mutation mutation={LOGIN_USER}>
+                <Mutation mutation={LOGIN_USER} onCompleted={this.onCompleteLogin} onError={this.onLoginError}>
                   {(loginUser) => {
                     return (
                       <form onSubmit={this.handleSubmit(loginUser)}>
@@ -91,4 +119,12 @@ class Login extends React.Component<IProps, IState> {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
+  return {
+    setToken: (token: string) => {
+      dispatch(setToken(token));
+    }
+  };
+};
+
+export default connect<IStateProps, IDispatchProps, IOwnProps>(undefined, mapDispatchToProps)(Login);

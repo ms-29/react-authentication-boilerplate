@@ -29,9 +29,9 @@ class Menu extends React.Component {
             </ul>
           </div>
         </nav>
-      </div>  
+      </div>
     );
-  }  
+  }
 }
 
 export default Menu;
