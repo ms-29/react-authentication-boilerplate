@@ -1,13 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter  } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class App extends Component {
+import Routes from './routes';
+import postgraphile from './clients/postgraphile';
+import { IState } from './reducers';
+
+interface IStateProps {
+  token?: string;
+}
+
+interface IProps extends IStateProps {
+
+}
+
+class App extends React.Component<IProps> {
+  constructor(props: IProps) {
+    super(props);
+  }
+
   render() {
+    const { token } = this.props;
+
     return (
-      <div>
-        Hello World
-      </div>
+      <ApolloProvider client={postgraphile(token)}>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </ApolloProvider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state: IState): IStateProps => {
+  return {
+    token: state.tokens.token
+  };
+}
+
+export default connect(mapStateToProps)(App);

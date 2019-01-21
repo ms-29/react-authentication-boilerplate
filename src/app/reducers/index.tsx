@@ -1,8 +1,12 @@
 import { createStore, combineReducers } from 'redux';
-import token from './token';
+import tokens, { IToken } from './tokens';
+
+export interface IState {
+  tokens: IToken
+}
 
 const rootReducer = combineReducers({
-  token
+  tokens
 });
 
 export default createStore(rootReducer);

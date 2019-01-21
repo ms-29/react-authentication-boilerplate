@@ -7,9 +7,9 @@ CREATE ROLE role_auth_private
 
 -- Type
 CREATE TYPE auth_public.jwt_token as (
-	user_role text,
-	user_id integer,
-	expired integer
+	role text,
+	exp integer,
+	user_id integer
 );
 
 -- Table
@@ -63,8 +63,8 @@ BEGIN
 	IF user_account.password_hash = auth_public.CRYPT(authenticate.password, user_account.password_hash) THEN
 		RETURN (
 			'role_auth_private',
-			user_account.user_id,
-			ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days'))
+			ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days')),
+			user_account.user_id
 		)::auth_public.jwt_token;
 	ELSE
 		RETURN NULL;
@@ -74,5 +74,33 @@ END
 $$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER
 
 
+CREATE FUNCTION auth_public.current_user_id (
+) RETURNS integer AS $$
+DECLARE
+  user_id integer;
+BEGIN
+  SELECT CURRENT_SETTING('jwt.claims.user_id', true)::integer into user_id;
+  
+  RETURN user_id;
+END
+$$ LANGUAGE PLPGSQL STABLE;
+
+
+CREATE FUNCTION auth_public.viewer (
+) RETURNS auth_public.user AS $$
+DECLARE
+  user_account auth_public.user;
+BEGIN
+  SELECT us.*
+  INTO user_account
+  FROM auth_public.user us
+  WHERE us.user_id = auth_public.current_user_id();
+  
+  RETURN user_account;
+END
+$$ LANGUAGE PLPGSQL STABLE;
+
+
 -- Grant
-GRANT USAGE ON SCHEMA auth_public TO role_auth_public, role_auth_private
+GRANT USAGE ON SCHEMA auth_public TO role_auth_public, role_auth_private;
+GRANT SELECT ON TABLE auth_public.user TO role_auth_private

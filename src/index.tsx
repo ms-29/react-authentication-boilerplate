@@ -1,22 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
-import { BrowserRouter  } from 'react-router-dom';
 
-import Routes from './app/routes';
 import store from './app/reducers';
-import client from './app/clients';
+import App from './app/app';
 
 import './index.scss';
 
 ReactDOM.render(
   <Provider store={store}>
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </ApolloProvider>
+    <App />
   </Provider>,
   document.getElementById('root')
 );

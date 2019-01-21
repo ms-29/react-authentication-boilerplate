@@ -1,7 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './index.scss';
+import { Query } from 'react-apollo';
+import { LOGGED_IN_USER } from './query';
+import Public from './public';
+
+import './menu.scss';
+
+interface IResponse {
+  viewer: {
+    email: string;
+    userId: string
+  }
+}
 
 class Menu extends React.Component {
   render() {
@@ -15,18 +26,13 @@ class Menu extends React.Component {
             <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse'>
-            <ul className='nav navbar-nav ml-auto'>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/Registration'>
-                  Registration
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/Login'>
-                  Login
-                </Link>
-              </li>
-            </ul>
+            <Query query={LOGGED_IN_USER}>
+              {({ data, loading, error }) => {    
+                return (
+                  <Public />
+                );
+              }}
+            </Query>
           </div>
         </nav>
       </div>

@@ -5,21 +5,13 @@ import { Mutation, MutationFn } from 'react-apollo';
 import { ApolloError } from 'apollo-client';
 
 import { LOGIN_USER } from './mutation';
-import { setToken } from '../../reducers/token';
-
-interface IOwnProps {
-
-}
-
-interface IStateProps {
-
-}
+import { setToken } from '../../reducers/tokens';
 
 interface IDispatchProps {
   setToken: (token: string) => void;
 }
 
-interface IProps extends IOwnProps, IStateProps, IDispatchProps {
+interface IProps extends IDispatchProps {
 
 }
 
@@ -127,4 +119,4 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
   };
 };
 
-export default connect<IStateProps, IDispatchProps, IOwnProps>(undefined, mapDispatchToProps)(Login);
+export default connect<{}, IDispatchProps, {}>(undefined, mapDispatchToProps)(Login);

@@ -7,7 +7,11 @@ export const setToken = (token: string) => ({
   payload: token
 });
 
-const initialState = {
+export interface IToken {
+  token?: string;
+}
+
+const initialState: IToken = {
   token: undefined
 };
 
