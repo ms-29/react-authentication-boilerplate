@@ -62,14 +62,14 @@ class Registration extends React.Component<IProps, IState> {
                     return (
                       <form onSubmit={this.handleSubmit(registerUser)}>
                         <div className='form-group row'>
-                          <label className='col-sm-2 col-form-label'>Email</label>
-                          <div className='col-sm-10'>
+                          <label className='col-sm-3 col-form-label'>Email</label>
+                          <div className='col-sm-9'>
                             <input className='form-control' type='text' name='email' placeholder='Email' onChange={this.handleChange} />
                           </div>
                         </div>
                         <div className='form-group row'>
-                          <label className='col-sm-2 col-form-label'>Password</label>
-                          <div className='col-sm-10'>
+                          <label className='col-sm-3 col-form-label'>Password</label>
+                          <div className='col-sm-9'>
                             <input className='form-control' type='password' name='password' placeholder='Password' onChange={this.handleChange} />
                           </div>
                         </div>

@@ -1,18 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class Public extends React.Component {
+class Private extends React.Component {
   render() {
     return (
       <ul className='nav navbar-nav ml-auto'>
         <li className='nav-item'>
-          <Link className='nav-link' to='/Registration'>
-            Registration
-          </Link>
-        </li>
-        <li className='nav-item'>
           <Link className='nav-link' to='/Login'>
-            Login
+            Logout
           </Link>
         </li>
       </ul>
@@ -20,4 +15,4 @@ class Public extends React.Component {
   }  
 }
 
-export default Public;
+export default Private;

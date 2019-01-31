@@ -26,7 +26,7 @@ class App extends React.Component<IProps> {
     return (
       <ApolloProvider client={postgraphile(token)}>
         <BrowserRouter>
-          <Routes />
+          <Routes token={token} />
         </BrowserRouter>
       </ApolloProvider>
     );
