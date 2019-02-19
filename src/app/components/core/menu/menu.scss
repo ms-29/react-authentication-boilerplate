@@ -9,6 +9,8 @@
 .navbar-nav {
   li {
     &.nav-item {
+      position: relative;
+
       a {
         &.nav-link {
           color: #FFFFFF;    
@@ -16,4 +18,16 @@
       }  
     }
   }  
+}
+
+div.sub-menu {
+  right: 0;
+  top: 47px;
+  width: 200px;
+  position: absolute;
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
 }
