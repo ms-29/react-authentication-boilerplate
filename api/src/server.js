@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { postgraphile } from 'postgraphile';
 import { Pool } from 'pg';
+import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
 
 import 'dotenv/config';
 
@@ -30,7 +31,8 @@ app.use(postgraphile(
     extendedErrors: ['hint', 'detail', 'errcode'],
     jwtSecret: process.env.POSTGRES_JWT_SECRET,
     pgDefaultRole: process.env.POSTGRES_DEFAULT_ROLE,
-    jwtPgTypeIdentifier: process.env.POSTGRES_TYPE_IDENTIFIER
+    jwtPgTypeIdentifier: process.env.POSTGRES_TYPE_IDENTIFIER,
+    appendPlugins: [PgSimplifyInflectorPlugin]
   }
 ));
 
