@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { postgraphile } from 'postgraphile';
 import { Pool } from 'pg';
+import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
 
 import 'dotenv/config';
 
@@ -25,7 +26,8 @@ app.use(cors({
 app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
     watchPg: true,
-    graphiql: true
+    graphiql: true,
+    appendPlugins: [PgSimplifyInflectorPlugin]
   }
 ));
 
