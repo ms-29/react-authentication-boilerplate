@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap';
 
 import Public from './public';
 import Private from './private';
@@ -20,19 +21,19 @@ class Menu extends React.Component<IProps> {
 
     return (
       <div>
-        <nav className='navbar navbar-expand-md navbar-light bg-secondary'>
-          <Link className='navbar-brand' to='/'>
-            <h1>Jobs</h1>
-          </Link>
-          <button type='button' className='navbar-toggler'>
-            <span className='navbar-toggler-icon'></span>
-          </button>
-          <div className='collapse navbar-collapse'>
+        <Navbar expand='md' bg='secondary'>
+          <Navbar.Brand>
+            <Link to='/'>
+              <h1>Jobs</h1>
+            </Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse>
             {token ?
               <Private /> : <Public />
             }
-          </div>
-        </nav>
+          </Navbar.Collapse>
+        </Navbar>
       </div>
     );
   }

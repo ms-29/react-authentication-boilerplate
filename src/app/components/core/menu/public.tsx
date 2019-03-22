@@ -1,21 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 
 class Public extends React.Component {
   render() {
     return (
-      <ul className='nav navbar-nav ml-auto'>
-        <li className='nav-item'>
+      <Nav className='ml-auto'>
+        <Nav.Item>
           <Link className='nav-link' to='/Registration'>
             Registration
           </Link>
-        </li>
-        <li className='nav-item'>
+        </Nav.Item>
+        <Nav.Item>
           <Link className='nav-link' to='/Login'>
             Login
           </Link>
-        </li>
-      </ul>
+        </Nav.Item>
+      </Nav>
     );
   }  
 }
