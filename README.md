@@ -1,7 +1,4 @@
 ## React PostGraphile Authentication Boilerplate
 
-* [React](https://reactjs.org/)
-* [Node.js](https://nodejs.org/)
-* [GraphQL](https://graphql.org/)
-* [PostGraphile](https://www.graphile.org/postgraphile/)
-* [PostgreSQL](https://www.postgresql.org/)
+[![Dependency Status](https://david-dm.org/MahediSabuj/react-postgraphile-authentication-boilerplate/status.svg)](https://david-dm.org/MahediSabuj/react-postgraphile-authentication-boilerplate)
+[![devDependency Status](https://david-dm.org/MahediSabuj/react-postgraphile-authentication-boilerplate/dev-status.svg)](https://david-dm.org/MahediSabuj/react-postgraphile-authentication-boilerplate?type=dev)
