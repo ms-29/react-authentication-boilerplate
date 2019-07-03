@@ -101,6 +101,6 @@ END
 $$ LANGUAGE PLPGSQL STABLE;
 
 
--- Grant
+-- Grant Permission
 GRANT USAGE ON SCHEMA auth_public TO role_auth_public, role_auth_private;
 GRANT SELECT ON TABLE auth_public.user TO role_auth_private

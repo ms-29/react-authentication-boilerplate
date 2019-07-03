@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@graphile-contrib/pg-simplify-inflector": "^4.0.0-alpha.0",
+    "@graphile-contrib/pg-simplify-inflector": "5.0.0-beta.1",
     "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
+    "db-migrate": "^0.11.6",
+    "db-migrate-pg": "^1.0.0",
+    "dotenv": "8.0.0",
     "express": "^4.16.4",
     "pg": "^7.7.1",
     "postgraphile": "^4.1.0"
@@ -18,7 +20,7 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.0",
-    "eslint": "^5.10.0",
+    "eslint": "6.0.1",
     "nodemon": "^1.18.9",
     "pm2": "^3.2.3"
   }
