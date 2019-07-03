@@ -24,7 +24,7 @@ class Menu extends React.Component<IProps> {
         <Navbar expand='md' bg='secondary'>
           <Navbar.Brand>
             <Link to='/'>
-              <h1>Jobs</h1>
+              <h1>React Boilerplate</h1>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle />

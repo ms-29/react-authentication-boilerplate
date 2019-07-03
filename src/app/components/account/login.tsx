@@ -78,7 +78,7 @@ class Login extends React.Component<IProps, IState> {
               </div>
               <div className='card-body'>
                 <Mutation mutation={LOGIN_USER} onCompleted={this.onCompleteLogin} onError={this.onLoginError}>
-                  {(loginUser) => {
+                  {(loginUser: MutationFn) => {
                     return (
                       <form onSubmit={this.handleSubmit(loginUser)}>
                         <div className='form-group row'>

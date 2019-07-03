@@ -58,7 +58,7 @@ class Registration extends React.Component<IProps, IState> {
               </div>
               <div className='card-body'>
                 <Mutation mutation={REGISTER_USER}>
-                  {(registerUser) => {
+                  {(registerUser: MutationFn) => {
                     return (
                       <form onSubmit={this.handleSubmit(registerUser)}>
                         <div className='form-group row'>
