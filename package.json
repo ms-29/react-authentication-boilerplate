@@ -22,8 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "npm run test --coverage",
-    "test:coveralls": "npm run test:coverage --coverageReporters=text-lcov | coveralls",
+    "test:coverage": "react-scripts test --coverage",
+    "test:coveralls": "react-scripts test --coverage --coverageReporters=text-lcov | coveralls",
     "eject": "react-scripts eject",
     "lint": "tslint -p ./"
   },
