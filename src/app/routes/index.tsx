@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 
 import Home from '../components/home';
-import { Menu } from '../components/core';
+import { Menu } from '../components/menu';
 import { Registration, Login } from '../components/account';
 
 interface IProps {
