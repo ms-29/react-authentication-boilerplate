@@ -47,9 +47,12 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-redux": "^7.1.1",
     "@types/react-router-dom": "^4.3.1",
+    "@types/redux-mock-store": "^1.0.1",
     "coveralls": "^3.0.4",
+    "enzyme": "^3.10.0",
     "pm2": "^3.2.3",
     "react-scripts": "^3.0.1",
+    "redux-mock-store": "^1.5.3",
     "tslint": "^5.11.0",
     "tslint-react": "^4.0.0"
   }
