@@ -16,10 +16,6 @@ interface IProps extends IStateProps {
 }
 
 class App extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
-
   render() {
     const { token } = this.props;
 

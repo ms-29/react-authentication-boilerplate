@@ -12,10 +12,6 @@ interface IProps {
 }
 
 class Menu extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
-
   render() {
     const { token } = this.props;
 
