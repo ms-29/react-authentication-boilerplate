@@ -1,21 +1,15 @@
-import { AnyAction } from 'redux';
-
 const SET_TOKEN = 'SET_TOKEN';
 
-export const setToken = (token: string) => ({
+export const setToken = (token) => ({
   type: SET_TOKEN,
   payload: token
 });
 
-export interface IToken {
-  token?: string;
-}
-
-const initialState: IToken = {
+const initialState = {
   token: undefined
 };
 
-export default (state = initialState, action: AnyAction) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_TOKEN:
       return {

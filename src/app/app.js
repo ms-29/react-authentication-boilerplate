@@ -5,17 +5,8 @@ import { connect } from 'react-redux';
 
 import Routes from './routes';
 import postgraphile from './clients/postgraphile';
-import { IState } from './reducers';
 
-interface IStateProps {
-  token?: string;
-}
-
-interface IProps extends IStateProps {
-
-}
-
-class App extends React.Component<IProps> {
+class App extends React.Component {
   render() {
     const { token } = this.props;
 
@@ -29,7 +20,7 @@ class App extends React.Component<IProps> {
   }
 }
 
-const mapStateToProps = (state: IState): IStateProps => {
+const mapStateToProps = (state) => {
   return {
     token: state.tokens.token
   };
