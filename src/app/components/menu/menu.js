@@ -7,15 +7,7 @@ import Private from './private';
 
 import './menu.scss';
 
-interface IProps {
-  token?: string;
-}
-
-class Menu extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
-
+class Menu extends React.Component {
   render() {
     const { token } = this.props;
 

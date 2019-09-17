@@ -1,32 +1,10 @@
 import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { Mutation, MutationFn } from 'react-apollo';
-import { ApolloError } from 'apollo-client';
+import { Mutation } from 'react-apollo';
 
-import { LOGIN_USER } from './mutation';
-import { setToken } from '../../reducers/tokens';
+import { REGISTER_USER } from './mutation';
 
-interface IDispatchProps {
-  setToken: (token: string) => void;
-}
-
-interface IProps extends IDispatchProps {
-
-}
-
-interface IState {
-  [key: string]: string;
-}
-
-interface IResponse {
-  authenticate: {
-    jwtToken: string;
-  };
-}
-
-class Login extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
+class Registration extends React.Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -38,7 +16,7 @@ class Login extends React.Component<IProps, IState> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  handleChange = (event) => {
     const { name, value } = event.currentTarget;
 
     this.setState({
@@ -46,25 +24,19 @@ class Login extends React.Component<IProps, IState> {
     });
   }
 
-  handleSubmit = (loginUser: MutationFn) => (event: React.FormEvent) => {
+  handleSubmit = (registerUser) => (event) => {
     event.preventDefault();
 
-    loginUser({
+    registerUser({
       variables: {
         email: this.state.email,
         password: this.state.password
       }
+    }).then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
     });
-  }
-
-  onCompleteLogin = (response: IResponse) => {
-    if (response) {
-      this.props.setToken(response.authenticate.jwtToken);
-    }
-  }
-
-  onLoginError = (error: ApolloError) => {
-    console.log(error);
   }
 
   render() {
@@ -74,13 +46,13 @@ class Login extends React.Component<IProps, IState> {
           <div className='mt-4'>
             <div className='card'>
               <div className='card-header'>
-                <h4>Login</h4>
+                <h4>Registration</h4>
               </div>
               <div className='card-body'>
-                <Mutation mutation={LOGIN_USER} onCompleted={this.onCompleteLogin} onError={this.onLoginError}>
-                  {(loginUser: MutationFn) => {
+                <Mutation mutation={REGISTER_USER}>
+                  {(registerUser) => {
                     return (
-                      <form onSubmit={this.handleSubmit(loginUser)}>
+                      <form onSubmit={this.handleSubmit(registerUser)}>
                         <div className='form-group row'>
                           <label className='col-sm-3 col-form-label'>Email</label>
                           <div className='col-sm-9'>
@@ -95,7 +67,7 @@ class Login extends React.Component<IProps, IState> {
                         </div>
                         <div className='form-group row'>
                           <div className='col-sm-12'>
-                            <input className='btn btn-primary float-right' type='submit' value='Login' />
+                            <input className='btn btn-primary float-right' type='submit' value='Register' />
                           </div>
                         </div>
                       </form>
@@ -111,12 +83,4 @@ class Login extends React.Component<IProps, IState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
-  return {
-    setToken: (token: string) => {
-      dispatch(setToken(token));
-    }
-  };
-};
-
-export default connect<{}, IDispatchProps, {}>(undefined, mapDispatchToProps)(Login);
+export default Registration;

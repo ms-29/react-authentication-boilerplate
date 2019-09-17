@@ -1,9 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import tokens, { IToken } from './tokens';
-
-export interface IState {
-  tokens: IToken
-}
+import tokens from './tokens';
 
 const rootReducer = combineReducers({
   tokens

@@ -5,15 +5,7 @@ import Home from '../components/home';
 import { Menu } from '../components/menu';
 import { Registration, Login } from '../components/account';
 
-interface IProps {
-  token?: string;
-}
-
-class Routes extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
-
+class Routes extends React.Component {
   render() {
     const { token } = this.props;
 

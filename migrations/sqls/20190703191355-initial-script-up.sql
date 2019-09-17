@@ -1,15 +1,18 @@
 -- Extension
-CREATE EXTENSION pgcrypto SCHEMA auth_public
+CREATE EXTENSION pgcrypto;
+
+--Schema
+CREATE SCHEMA IF NOT EXISTS auth_public;
 
 -- Role
-CREATE ROLE role_auth_public
-CREATE ROLE role_auth_private
+CREATE ROLE role_auth_public;
+CREATE ROLE role_auth_private;
 
 -- Type
 CREATE TYPE auth_public.jwt_token as (
-	role text,
-	exp integer,
-	user_id integer
+  role text,
+  exp integer,
+  user_id integer
 );
 
 -- Table
@@ -32,15 +35,8 @@ DECLARE
   new_user auth_public.user;
 BEGIN
   INSERT INTO auth_public.user
-	(
-	  email,
-	  password_hash
-	)
-	VALUES
-	(
-	  email,
-	  auth_public.CRYPT(password, auth_public.GEN_SALT('bf'))
-	)
+	(email, password_hash)
+	  VALUES (email, CRYPT(password, GEN_SALT('bf')))
   RETURNING * INTO new_user;
 				  
   RETURN new_user;
@@ -49,29 +45,28 @@ $$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER;
 
 
 CREATE OR REPLACE FUNCTION auth_public.authenticate (
-	email text,
-	password text
+  email text,
+  password text
 ) RETURNS auth_public.jwt_token as $$
 DECLARE
-	user_account auth_public.user;
+  user_account auth_public.user;
 BEGIN
-	SELECT us.* 
-	INTO user_account
-	FROM auth_public.user as us
-	WHERE us.email = authenticate.email;
+  SELECT us.* 
+  INTO user_account
+  FROM auth_public.user as us
+  WHERE us.email = authenticate.email;
 	
-	IF user_account.password_hash = auth_public.CRYPT(authenticate.password, user_account.password_hash) THEN
-		RETURN (
-			'role_auth_private',
-			ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days')),
-			user_account.user_id
-		)::auth_public.jwt_token;
-	ELSE
-		RETURN NULL;
-	END IF;	
-	
+  IF user_account.password_hash = CRYPT(authenticate.password, user_account.password_hash) THEN
+	RETURN (
+      'role_auth_private',
+	  ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days')),
+	  user_account.user_id
+	)::auth_public.jwt_token;
+  ELSE
+	RETURN NULL;
+  END IF;	
 END
-$$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER
+$$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER;
 
 
 CREATE FUNCTION auth_public.current_user_id (
@@ -103,4 +98,4 @@ $$ LANGUAGE PLPGSQL STABLE;
 
 -- Grant Permission
 GRANT USAGE ON SCHEMA auth_public TO role_auth_public, role_auth_private;
-GRANT SELECT ON TABLE auth_public.user TO role_auth_private
+GRANT SELECT ON TABLE auth_public.user TO role_auth_private;

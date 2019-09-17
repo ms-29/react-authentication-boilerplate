@@ -1,4 +1,5 @@
 import express from 'express';
+import path from'path';
 import cors from 'cors';
 import { postgraphile } from 'postgraphile';
 import { Pool } from 'pg';
@@ -16,12 +17,7 @@ const pgPool = new Pool({
   database: process.env.POSTGRES_DATABASE
 });
 
-app.use(cors({
-  origin: [
-    process.env.POSTGRES_ALLOWED_ORIGIN
-  ],
-  optionsSuccessStatus: 200
-}));
+app.use(cors());
 
 app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
@@ -35,6 +31,19 @@ app.use(postgraphile(
     appendPlugins: [PgSimplifyInflectorPlugin]
   }
 ));
+
+app.use(
+  express.static(
+    path.join(
+      __dirname,
+      "build"
+    )
+  )
+);
+
+app.get("/*", function(request, response) {
+  response.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 const port = process.env.PORT || 3000;
 

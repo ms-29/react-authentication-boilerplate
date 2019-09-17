@@ -7,7 +7,7 @@ const httpLink = createHttpLink({
   uri: process.env.REACT_APP_API
 });
 
-const authLink = (token?: string) => 
+const authLink = (token) => 
   setContext((_, { headers }) => {
     const authHeader = token ? {
       Authorization: `Bearer ${token}`
@@ -23,7 +23,7 @@ const authLink = (token?: string) =>
 
 const cache = new InMemoryCache();
 
-const client = (token?: string) => {
+const client = (token) => {
   return new ApolloClient({
     link: authLink(token).concat(httpLink),
     cache
