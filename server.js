@@ -4,6 +4,11 @@ import cors from 'cors';
 import { postgraphile } from 'postgraphile';
 import { Pool } from 'pg';
 import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
+import passport from 'passport';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+
+import PassportLoginPlugin from './plugins/PassportLoginPlugin';
 
 import 'dotenv/config';
 
@@ -18,6 +23,24 @@ const pgPool = new Pool({
 });
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ 
+  secret: process.env.POSTGRES_JWT_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
@@ -25,10 +48,26 @@ app.use(postgraphile(
     watchPg: true,
     showErrorStack: true,
     extendedErrors: ['hint', 'detail', 'errcode'],
-    jwtSecret: process.env.POSTGRES_JWT_SECRET,
-    pgDefaultRole: process.env.POSTGRES_DEFAULT_ROLE,
-    jwtPgTypeIdentifier: process.env.POSTGRES_TYPE_IDENTIFIER,
-    appendPlugins: [PgSimplifyInflectorPlugin]
+    pgSettings: (request) => {
+      return {
+        'role': request.user ? 'role_auth_private' : 'role_auth_public',
+        'jwt.claims.user_id': request.user ? request.user.id : undefined
+      }
+    },
+    appendPlugins: [
+      PgSimplifyInflectorPlugin,
+      PassportLoginPlugin
+    ],
+    additionalGraphQLContextFromRequest: (request) => {
+      return {
+        rootPgPool: pgPool,
+        login: user => {
+          return new Promise((resolve, reject) => {
+            return request.login(user, err => (err ? reject(err) : resolve()));
+          });
+        }
+      }
+    }
   }
 ));
 

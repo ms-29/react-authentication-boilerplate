@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Mutation } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import { LOGIN_USER } from './mutation';
 import { setToken } from '../../reducers/tokens';
@@ -11,7 +12,8 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      success: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,8 +40,9 @@ class Login extends React.Component {
   }
 
   onCompleteLogin = (response) => {
-    if (response) {
-      this.props.setToken(response.authenticate.jwtToken);
+    if (response && response.login) {
+      this.props.setToken(response.login.user.email);
+      this.setState({ success: 'true' });
     }
   }
 
@@ -48,6 +51,10 @@ class Login extends React.Component {
   }
 
   render() {
+    if (this.state.success) {
+      return <Redirect to='/' />;
+    }
+
     return (
       <div className='col-sm-12'>
         <div className='col-sm-6 mx-auto'>
