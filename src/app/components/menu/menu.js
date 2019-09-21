@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
@@ -9,7 +10,7 @@ import './menu.scss';
 
 class Menu extends React.Component {
   render() {
-    const { token } = this.props;
+    const { user } = this.props;
 
     return (
       <div>
@@ -21,7 +22,7 @@ class Menu extends React.Component {
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse>
-            {token ?
+            {(user) ?
               <Private /> : <Public />
             }
           </Navbar.Collapse>
@@ -31,4 +32,10 @@ class Menu extends React.Component {
   }
 }
 
-export default Menu;
+const mapStateToProps = (state) => {
+  return {
+    user: state.users.user
+  };
+}
+
+export default connect(mapStateToProps)(Menu);

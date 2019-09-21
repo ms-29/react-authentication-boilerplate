@@ -45,7 +45,7 @@ const PassportLoginPlugin = makeExtendSchemaPlugin(build => ({
                 email, password
               ]
             );
-  
+
             if(!user) {
               throw new Error("Registration Failed");
             }
@@ -92,7 +92,7 @@ const PassportLoginPlugin = makeExtendSchemaPlugin(build => ({
                 email, password
               ]
             );
-  
+ 
             if(!user) {
               throw new Error("Login Failed");
             }

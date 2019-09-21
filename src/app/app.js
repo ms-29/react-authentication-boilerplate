@@ -1,29 +1,20 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter  } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import Routes from './routes';
-import postgraphile from './clients/postgraphile';
+import { postgraphile } from './clients';
 
 class App extends React.Component {
   render() {
-    const { token } = this.props;
-
     return (
-      <ApolloProvider client={postgraphile(token)}>
+      <ApolloProvider client={postgraphile}>
         <BrowserRouter>
-          <Routes token={token} />
+          <Routes />
         </BrowserRouter>
       </ApolloProvider>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.tokens.token
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

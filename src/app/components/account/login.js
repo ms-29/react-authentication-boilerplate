@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
 import { LOGIN_USER } from './mutation';
-import { setToken } from '../../reducers/tokens';
+import { setUser } from '../../reducers/users';
 
 class Login extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Login extends React.Component {
 
   onCompleteLogin = (response) => {
     if (response && response.login) {
-      this.props.setToken(response.login.user.email);
+      this.props.setUser(response.login.user);
       this.setState({ success: 'true' });
     }
   }
@@ -100,8 +100,8 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setToken: (token) => {
-      dispatch(setToken(token));
+    setUser: (user) => {
+      dispatch(setUser(user));
     }
   };
 };

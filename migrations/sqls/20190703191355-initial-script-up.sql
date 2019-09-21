@@ -47,7 +47,7 @@ $$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER;
 CREATE OR REPLACE FUNCTION auth_public.authenticate (
   email text,
   password text
-) RETURNS auth_public.jwt_token as $$
+) RETURNS auth_public.user as $$
 DECLARE
   user_account auth_public.user;
 BEGIN
@@ -57,11 +57,12 @@ BEGIN
   WHERE us.email = authenticate.email;
 	
   IF user_account.password_hash = CRYPT(authenticate.password, user_account.password_hash) THEN
-	RETURN (
-      'role_auth_private',
-	  ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days')),
-	  user_account.user_id
-	)::auth_public.jwt_token;
+	-- RETURN (
+  --     'role_auth_private',
+	--   ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days')),
+	--   user_account.user_id
+	-- )::auth_public.jwt_token;
+    RETURN user_account;
   ELSE
 	RETURN NULL;
   END IF;	

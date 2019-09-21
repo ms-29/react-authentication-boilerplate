@@ -42,6 +42,11 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+app.post("/logout", function(request, response) {
+  request.logout();
+  response.send({ success: true });
+});
+
 app.use(postgraphile(
   pgPool, process.env.POSTGRES_DATABASE_SCHEMA, {
     graphiql: true,
@@ -51,7 +56,7 @@ app.use(postgraphile(
     pgSettings: (request) => {
       return {
         'role': request.user ? 'role_auth_private' : 'role_auth_public',
-        'jwt.claims.user_id': request.user ? request.user.id : undefined
+        'jwt.claims.user_id': request.user ? request.user.user_id : undefined
       }
     },
     appendPlugins: [
