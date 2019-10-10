@@ -86,19 +86,20 @@ app.use(postgraphile(
 const serverRenderer = (req, res, next) => {
   fs.readFile(path.resolve('./dist/index.html'), 'utf8', (err, data) => {
     if (err) {
-      console.error(err)
-      return res.status(500).send('An error occurred')
+      console.error(err);
+      return res.status(500).send('An error occurred');
     }
+
     return res.send(
       data.replace(
         '<div id="root"></div>',
         `<div id="root">${ReactDOMServer.renderToString(<App path={req.path} />)}</div>`
       )
-    )
+    );
   })
 }
 
-app.use(
+app.use('/static', 
   express.static(
     path.join(
       __dirname,
