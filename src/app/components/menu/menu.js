@@ -17,7 +17,7 @@ class Menu extends React.Component {
         <Navbar expand='md' bg='secondary'>
           <Navbar.Brand>
             <Link to='/'>
-              <h1>React Boilerplate</h1>
+              <h1>React App</h1>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle />

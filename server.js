@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import path from'path';
 import cors from 'cors';
 import { postgraphile } from 'postgraphile';
@@ -7,10 +8,16 @@ import PgSimplifyInflectorPlugin from '@graphile-contrib/pg-simplify-inflector';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import register from 'ignore-styles'
 
 import PassportLoginPlugin from './plugins/PassportLoginPlugin';
+import App from './src/app/app';
 
 import 'dotenv/config';
+
+register(['.sass', '.scss']);
 
 const app = express();
 
@@ -76,18 +83,31 @@ app.use(postgraphile(
   }
 ));
 
+const serverRenderer = (req, res, next) => {
+  fs.readFile(path.resolve('./dist/index.html'), 'utf8', (err, data) => {
+    if (err) {
+      console.error(err)
+      return res.status(500).send('An error occurred')
+    }
+    return res.send(
+      data.replace(
+        '<div id="root"></div>',
+        `<div id="root">${ReactDOMServer.renderToString(<App path={req.path} />)}</div>`
+      )
+    )
+  })
+}
+
 app.use(
   express.static(
     path.join(
       __dirname,
-      "build"
+      "dist"
     )
   )
 );
 
-app.get("/*", function(request, response) {
-  response.sendFile(path.join(__dirname, "build", "index.html"));
-});
+app.get("/*", serverRenderer);
 
 const port = process.env.PORT || 3000;
 

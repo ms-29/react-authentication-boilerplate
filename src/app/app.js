@@ -1,18 +1,23 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter  } from 'react-router-dom';
+import { BrowserRouter, StaticRouter  } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import Routes from './routes';
 import { postgraphile } from './clients';
+import store from './reducers';
 
 class App extends React.Component {
   render() {
+    const { path } = this.props;
     return (
-      <ApolloProvider client={postgraphile}>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
-      </ApolloProvider>
+      <Provider store={store}>
+        <ApolloProvider client={postgraphile}>
+          <StaticRouter location={path}>
+            <Routes />
+          </StaticRouter>
+        </ApolloProvider>
+      </Provider>
     );
   }
 }

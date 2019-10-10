@@ -7,7 +7,7 @@ import App from './app/app';
 
 import './index.scss';
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <App />
   </Provider>,

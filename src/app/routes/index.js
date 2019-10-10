@@ -10,9 +10,9 @@ import { LOGIN_USER } from './query';
 import { setUser } from '../reducers/users';
 
 class Routes extends React.Component {
-  static getDerivedStateFromProps(props) {
-    props.setUser(props.data.viewer);
-  }
+  // static getDerivedStateFromProps(props) {
+  //   props.setUser(props.data.viewer);
+  // }
 
   render() {
     return (
@@ -29,12 +29,13 @@ class Routes extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUser: (user) => {
-      dispatch(setUser(user));
-    }
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setUser: (user) => {
+//       dispatch(setUser(user));
+//     }
+//   };
+// };
 
-export default connect(undefined, mapDispatchToProps)(graphql(LOGIN_USER)(Routes));
+// export default connect(undefined, mapDispatchToProps)(graphql(LOGIN_USER)(Routes));
+export default Routes;
