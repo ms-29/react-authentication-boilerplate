@@ -1,9 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const WebpackNodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     app: './src/index.js'
   },
@@ -26,6 +27,9 @@ module.exports = {
       }
     ]
   },
+  externals: [
+    WebpackNodeExternals()
+  ],
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
