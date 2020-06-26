@@ -1,11 +1,19 @@
 .navbar-brand {
+  a {
+    &:hover {
+      h1 {
+        color: #000000;
+      }
+    }
+  }
+
   h1 {
     margin: 0;
     font-size: 1em;  
     color: #FFFFFF;
   }
 }
-  
+
 .navbar-nav {
   .nav-item {
     position: relative;

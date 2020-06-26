@@ -1,21 +1,20 @@
 import React from 'react';
-import { Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import NestedMenu from '../nested-menu';
+
+const MENU_LIST = [
+  {
+    menuText: 'Registration',
+    menuUrl: '/registration'
+  },
+  {
+    menuText: 'Login',
+    menuUrl: '/login'
+  }
+];
 
 function Public() {
   return (
-    <Nav className='ml-auto'>
-      <Nav.Item>
-        <Link className='nav-link' to='/registration'>
-          Registration
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link className='nav-link' to='/login'>
-          Login
-        </Link>
-      </Nav.Item>
-    </Nav>
+    <NestedMenu menuList={MENU_LIST} />
   );
 }
 

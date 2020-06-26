@@ -38,8 +38,8 @@ function Registration(props) {
                 registerUser({variables: { email, password }});
               }}>
                 <Form.Group as={Row}>
-                  <Form.Label column sm={3}>Email Address</Form.Label>
-                  <Col sm={9}>
+                  <Form.Label column sm={12} md={3}>Email Address</Form.Label>
+                  <Col sm={12} md={9}>
                     <Form.Control
                       type='text'
                       placeholder='Email Address'
@@ -48,8 +48,8 @@ function Registration(props) {
                   </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                  <Form.Label column sm={3}>Password</Form.Label>
-                  <Col sm={9}>
+                  <Form.Label column sm={12} md={3}>Password</Form.Label>
+                  <Col sm={12} md={9}>
                     <Form.Control
                       type='password'
                       placeholder='Password'
