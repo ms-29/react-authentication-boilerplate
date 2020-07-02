@@ -3,6 +3,8 @@ CREATE EXTENSION pgcrypto;
 
 CREATE SCHEMA IF NOT EXISTS auth_public;
 
+GRANT USAGE ON SCHEMA auth_public TO role_auth_public, role_auth_private;
+
 CREATE TABLE auth_public.user (
   user_id SERIAL NOT NULL PRIMARY KEY,
   email TEXT NOT NULL UNIQUE,
@@ -12,11 +14,7 @@ CREATE TABLE auth_public.user (
 COMMENT ON COLUMN auth_public.user.password_hash is E'@omit';
 COMMENT ON TABLE auth_public.user is E'@omit create';
 
-CREATE TYPE auth_public.jwt_token as (
-  role text,
-  exp integer,
-  user_id integer
-);
+GRANT SELECT ON TABLE auth_public.user TO role_auth_public, role_auth_private;
 
 CREATE FUNCTION auth_public.register_user(
   email TEXT,
@@ -37,7 +35,7 @@ $$ LANGUAGE PLPGSQL STRICT SECURITY DEFINER;
 CREATE OR REPLACE FUNCTION auth_public.authenticate (
   email text,
   password text
-) RETURNS auth_public.jwt_token as $$
+) RETURNS auth_public.user as $$
 DECLARE
   user_account auth_public.user;
 BEGIN
@@ -47,11 +45,7 @@ BEGIN
   WHERE us.email = authenticate.email;
 	
   IF user_account.password_hash = CRYPT(authenticate.password, user_account.password_hash) THEN
-    RETURN (
-        'role_auth_private',
-      ROUND(EXTRACT(EPOCH FROM NOW() + INTERVAL '7 days')),
-      user_account.user_id
-    )::auth_public.jwt_token;
+    RETURN user_account;
   ELSE
 	  RETURN NULL;
   END IF;	
