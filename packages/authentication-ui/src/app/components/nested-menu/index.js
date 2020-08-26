@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import Menu from './menu';
 
@@ -8,7 +8,7 @@ function NestedMenu(props) {
   const ref = useRef(null);
   const [ active, setActive ] = useState(undefined);
 
-  useState(() => {
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);

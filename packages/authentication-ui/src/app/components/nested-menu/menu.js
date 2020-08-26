@@ -7,6 +7,7 @@ function Menu(props) {
     <ul className='menu-list'>
       {props.menuList.map((menu, index) => (
         <MenuItem
+          key={index}
           menu={menu}
           index={index}
           active={props.active}

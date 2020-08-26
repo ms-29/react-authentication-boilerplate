@@ -9,8 +9,8 @@
     "@graphile-contrib/pg-simplify-inflector": "^6.0.0",
     "db-migrate": "^0.11.11",
     "db-migrate-pg": "^1.2.2",
-    "graphile-utils": "^4.7.0",
-    "pg": "^8.2.1",
-    "postgraphile": "^4.7.0"
+    "graphile-utils": "^4.8.0",
+    "pg": "^8.3.2",
+    "postgraphile": "^4.8.0"
   }
 }

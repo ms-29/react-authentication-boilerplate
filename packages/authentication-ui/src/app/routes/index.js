@@ -6,6 +6,7 @@ import Home from '../components/home';
 import { Login, Registration } from '../components/account';
 
 function Routes() {
+
   return (
     <>
       <Menu />

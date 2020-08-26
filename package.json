@@ -5,7 +5,8 @@
     "bootstrap": "lerna bootstrap",
     "develop": "lerna run develop --stream",
     "build": "lerna run build --stream",
-    "remove": "lerna run remove --stream"
+    "remove": "lerna run remove --stream",
+    "webpack": "lerna run webpack --stream"
   },
   "devDependencies": {
     "lerna": "^3.22.0"
